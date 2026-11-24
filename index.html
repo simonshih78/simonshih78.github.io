@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>侍其資本 SHAKYA CAPITAL｜量化回測與投資研究總目錄</title>
+  <meta name="description" content="simonshih78 個人量化回測終端與投資文獻研究入口：美股暴跌與高收益債利差回測、跨世紀資產輪動、富同投資法證回測、PTT 股板經典全集。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font-ui: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0c0e12;
+      --bg-elev: #12161d;
+      --bg-card: #151a22;
+      --bg-card-hover: #1a202b;
+      --bg-chip: #1d2430;
+      --border: #252d3b;
+      --border-strong: #364154;
+      --ink: #f1f4f9;
+      --muted: #98a4b8;
+      --dim: #667389;
+      --accent: #e05a4f;
+      --accent-soft: rgba(224, 90, 79, 0.14);
+      --accent-border: rgba(224, 90, 79, 0.36);
+      --green: #2eb886;
+      --green-soft: rgba(46, 184, 134, 0.14);
+      --amber: #e2a93b;
+      --amber-soft: rgba(226, 169, 59, 0.14);
+      --blue: #5b9cf6;
+      --blue-soft: rgba(91, 156, 246, 0.14);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.36);
+      --btn-primary-bg: #f1f4f9;
+      --btn-primary-ink: #0c0e12;
+      --btn-primary-hover: #ffffff;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f5f3ee;
+      --bg-elev: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fbfaf7;
+      --bg-chip: #f1eee7;
+      --border: #e1dcd1;
+      --border-strong: #c8c1b2;
+      --ink: #171a20;
+      --muted: #58606e;
+      --dim: #7f8796;
+      --accent: #c93b32;
+      --accent-soft: rgba(201, 59, 50, 0.09);
+      --accent-border: rgba(201, 59, 50, 0.28);
+      --green: #188c63;
+      --green-soft: rgba(24, 140, 99, 0.1);
+      --amber: #b37812;
+      --amber-soft: rgba(179, 120, 18, 0.11);
+      --blue: #2563c9;
+      --blue-soft: rgba(37, 99, 201, 0.1);
+      --shadow: 0 6px 22px rgba(23, 26, 32, 0.06);
+      --btn-primary-bg: #171a20;
+      --btn-primary-ink: #ffffff;
+      --btn-primary-hover: #2d333f;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-ui);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Top bar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--bg-elev);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .theme-switch {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .theme-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 11px;
+      cursor: pointer;
+    }
+    .theme-btn.active {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-ink);
+    }
+    .gh-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .gh-link:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+
+    /* Main container */
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+      box-shadow: 0 0 0 3px var(--green-soft);
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.28;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+      max-width: 680px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: var(--bg-chip);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      min-width: 112px;
+    }
+    .stat-pill .k {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .stat-pill .v {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Controls bar */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--muted);
+      font-family: var(--font-ui);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .filter-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+    .filter-btn.active {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-ink);
+      border-color: var(--btn-primary-bg);
+    }
+
+    .right-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: flex-end;
+      min-width: 240px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 300px;
+      min-width: 180px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 12px 8px 34px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--ink);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--dim);
+      pointer-events: none;
+    }
+    .sync-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .sync-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+    .sync-status {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Cards grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s, transform 0.15s;
+      min-width: 0;
+    }
+    .card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+    .card.featured {
+      border-color: var(--accent-border);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.03em;
+    }
+    .badge-quant { background: var(--accent-soft); color: var(--accent); }
+    .badge-fund  { background: var(--amber-soft); color: var(--amber); }
+    .badge-ptt   { background: var(--blue-soft); color: var(--blue); }
+    .badge-auto  { background: var(--green-soft); color: var(--green); }
+    .card-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .card-url-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-chip);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      min-width: 0;
+    }
+    .card-url-text {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+      min-width: 0;
+    }
+    .copy-btn {
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover {
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+    .copy-btn.copied {
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .card-desc {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .metrics {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .metric-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink);
+      background: var(--bg-chip);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 5px;
+    }
+
+    .shortcuts {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-top: 2px;
+    }
+    .shortcut-lbl {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--dim);
+      margin-right: 2px;
+    }
+    .shortcut-link {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 3px 9px;
+      border-radius: 5px;
+      transition: opacity 0.15s;
+    }
+    .shortcut-link:hover { opacity: 0.85; }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-ink);
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 8px 15px;
+      border-radius: 7px;
+    }
+    .btn-open:hover {
+      background: var(--btn-primary-hover);
+    }
+    .btn-repo {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 7px 11px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-repo:hover {
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      background: var(--bg-card);
+      border: 1px dashed var(--border-strong);
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--dim);
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding: 18px 18px; }
+      .hero h1 { font-size: 20px; }
+      .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: 8px; }
+      .stat-pill { min-width: 0; padding: 9px 10px; }
+      .wrap { padding: 18px 14px 44px; }
+      .topbar-inner { padding: 10px 14px; }
+      .right-tools { width: 100%; justify-content: stretch; }
+      .search-box { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-title">侍其資本 SHAKYA CAPITAL</span>
+        <span class="brand-sub">RESEARCH HUB // SIMONSHIH78.GITHUB.IO</span>
+      </div>
+      <div class="top-actions">
+        <a class="gh-link" href="https://github.com/simonshih78?tab=repositories" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub 全部專案
+        </a>
+        <div class="theme-switch" role="group" aria-label="主題切換">
+          <button type="button" class="theme-btn active" data-theme-set="dark">終端深色</button>
+          <button type="button" class="theme-btn" data-theme-set="light">研報淺色</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="hero-kicker"><span class="live-dot"></span>PERSONAL QUANT &amp; INVESTMENT RESEARCH PORTAL</div>
+        <h1>量化回測終端與投資文獻總目錄</h1>
+        <p>集中管理 <strong>simonshih78</strong> 名下所有已部署的互動式回測終端與經典實戰文集。只要收藏本頁網址 <code>https://simonshih78.github.io/</code>，即可一鍵切換所有研究網站；未來於 GitHub 新增任何 Pages 專案時，本頁亦會自動偵測並列出。</p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <div class="k">LIVE SITES</div>
+          <div class="v" id="statTotal">5</div>
+        </div>
+        <div class="stat-pill">
+          <div class="k">BACKTESTS</div>
+          <div class="v" id="statQuant">3</div>
+        </div>
+        <div class="stat-pill">
+          <div class="k">ARCHIVES</div>
+          <div class="v" id="statArchive">2</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="filter-group" id="filterGroup">
+        <button type="button" class="filter-btn active" data-cat="all">全部網站</button>
+        <button type="button" class="filter-btn" data-cat="quant">量化回測終端</button>
+        <button type="button" class="filter-btn" data-cat="archive">大師實戰全集</button>
+      </div>
+      <div class="right-tools">
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" id="searchInput" placeholder="搜尋網站名稱、標的或關鍵字..." autocomplete="off" />
+        </div>
+        <button type="button" class="sync-btn" id="btnSyncGh" title="即時向 GitHub API 查詢最新 Pages 列表">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          同步 GitHub 清單
+        </button>
+      </div>
+    </section>
+
+    <div class="sync-status">
+      <span id="syncText">已載入內建清單（5 個活躍網站）· 啟動自動比對 GitHub Pages 狀態...</span>
+      <span>固定規則：<code>https://simonshih78.github.io/&lt;專案名&gt;/</code></span>
+    </div>
+
+    <section class="grid" id="cardsGrid"></section>
+
+    <footer>
+      <div>侍其資本 SHAKYA CAPITAL · <a href="https://www.facebook.com/ShakyaCapital" target="_blank" rel="noopener noreferrer">Facebook 專頁 ↗</a></div>
+      <div>GitHub 帳號：<a href="https://github.com/simonshih78" target="_blank" rel="noopener noreferrer">@simonshih78</a> · 自動化 Pages 入口</div>
+    </footer>
+  </main>
+
+  <script>
+    const OWNER = 'simonshih78';
+    const CURATED_SITES = [
+      {
+        repo: 'ai-backtest',
+        title: '美股科技／半導體暴跌與高收益債利差回測終端',
+        category: 'quant',
+        badgeLabel: '量化回測・核心主站',
+        badgeClass: 'badge-quant',
+        featured: true,
+        updated: '2026-11-24',
+        url: 'https://simonshih78.github.io/ai-backtest/',
+        desc: '涵蓋 XLK、SOXX、SOX（32.5 年）單日急殺與無前視 252 日 -2σ 回測、愛大 2021–2026 課程實證、FRED 30 年高收益債利差非衰退期散佈圖（支援點擊散佈點展開 T+1～T+60 逐日軌跡與同期 HY OAS）及 21 詞條量化專有名詞字典。',
+        metrics: ['7 大分頁', 'XLK / SOXX / SOX', '30Y HY OAS', '點擊紅點 T+60 軌跡'],
+        shortcuts: [
+          { label: '散佈圖 B・點擊紅點軌跡', href: 'https://simonshih78.github.io/ai-backtest/?cr_sc=oas#CREDIT' },
+          { label: '高收益債利差', href: 'https://simonshih78.github.io/ai-backtest/#CREDIT' },
+          { label: '專有名詞字典', href: 'https://simonshih78.github.io/ai-backtest/#GLOSSARY' }
+        ]
+      },
+      {
+        repo: 'asset-rotation-backtest',
+        title: '跨世紀資產與板塊輪動回測終端（1928–2026）',
+        category: 'quant',
+        badgeLabel: '跨資產輪動回測',
+        badgeClass: 'badge-quant',
+        featured: true,
+        updated: '2026-11-24',
+        url: 'https://simonshih78.github.io/asset-rotation-backtest/',
+        desc: '整合 NYU Damodaran 98 年 7 大類資產、美股 11 大板塊 ETF 與全球 16 國／商品 ETF，對決「買去年最慘（落水狗逆向）vs 前年最強（動能）vs 等權再平衡 vs 10M 右側均線防飛刀濾網」，內建 28 年板塊排行熱力圖與互動策略實驗室。',
+        metrics: ['6 大分頁', 'Damodaran 98Y', '10M 均線防飛刀', '台灣 30% 稅後口徑'],
+        shortcuts: []
+      },
+      {
+        repo: 'wealthshare-backtest',
+        title: '富同投資（WealthShare）2010–2026 Q3 季報法證回測',
+        category: 'quant',
+        badgeLabel: '機構法證回測',
+        badgeClass: 'badge-fund',
+        featured: false,
+        updated: '2026-11-22',
+        url: 'https://simonshih78.github.io/wealthshare-backtest/',
+        desc: '完整抓取並逐份法證核對富同投資成立 16 年來 41 份官方年報與季報 PDF，還原含息再投入複利 CAGR、歷年配息與報酬率走勢、對標台股大盤報酬指數超額績效與持股紀律拆解。',
+        metrics: ['41 份官方 PDF', '2010–2026 Q3', '含息還原複利', '逐年績效對帳'],
+        shortcuts: []
+      },
+      {
+        repo: 'ptt-stock-phcebus',
+        title: 'PTT Stock 板 phcebus（菲比斯）13 年全集與交易心法',
+        category: 'archive',
+        badgeLabel: '大師實戰全集',
+        badgeClass: 'badge-ptt',
+        featured: false,
+        updated: '2026-11-22',
+        url: 'https://simonshih78.github.io/ptt-stock-phcebus/',
+        desc: '系統化收錄並整理 PTT 股板傳奇實戰派 phcebus（2012–2025）共 155 篇完整文章，支援全文關鍵字檢索、主題分類閱讀與深／淺色行動端最佳化排版。',
+        metrics: ['155 篇文章', '2012–2025', '全文搜尋', '手機直覺閱讀'],
+        shortcuts: []
+      },
+      {
+        repo: 'ptt-stock-stasis',
+        title: 'PTT Stock 板 stasis（麥克風）全集與投資心法總整理',
+        category: 'archive',
+        badgeLabel: '大師實戰全集',
+        badgeClass: 'badge-ptt',
+        featured: false,
+        updated: '2026-11-21',
+        url: 'https://simonshih78.github.io/ptt-stock-stasis/',
+        desc: '系統化整理 PTT 股板長青大師 stasis（流雨風雪／麥克風，2008–2026）共 108 篇深度長文與資產配置核心思想，提供科技感互動目錄與行動端順暢閱讀體驗。',
+        metrics: ['108 篇文章', '2008–2026', '全文搜尋', '手機直覺閱讀'],
+        shortcuts: []
+      }
+    ];
+
+    let allSites = CURATED_SITES.map(s => ({ ...s }));
+    let activeCat = 'all';
+    let searchTerm = '';
+
+    // Theme management
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('sh_portal_theme', theme); } catch (e) {}
+      document.querySelectorAll('[data-theme-set]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.themeSet === theme);
+      });
+    }
+    try {
+      const saved = localStorage.getItem('sh_portal_theme');
+      if (saved === 'light' || saved === 'dark') setTheme(saved);
+    } catch (e) {}
+    document.querySelectorAll('[data-theme-set]').forEach(btn => {
+      btn.addEventListener('click', () => setTheme(btn.dataset.themeSet));
+    });
+
+    function updateStats() {
+      const total = allSites.length;
+      const qCnt = allSites.filter(s => s.category === 'quant').length;
+      const aCnt = allSites.filter(s => s.category === 'archive').length;
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statQuant').textContent = qCnt;
+      document.getElementById('statArchive').textContent = aCnt;
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function renderCards() {
+      updateStats();
+      const q = searchTerm.trim().toLowerCase();
+      const list = allSites.filter(s => {
+        if (activeCat !== 'all' && s.category !== activeCat) return false;
+        if (!q) return true;
+        const hay = [s.repo, s.title, s.desc, s.badgeLabel, ...(s.metrics || [])].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+
+      const grid = document.getElementById('cardsGrid');
+      if (!list.length) {
+        grid.innerHTML = `<div class="empty-state">找不到符合「${escapeHtml(searchTerm)}」的網站，請嘗試其他關鍵字或切換回「全部網站」。</div>`;
+        return;
+      }
+
+      grid.innerHTML = list.map(s => {
+        const repoUrl = `https://github.com/${OWNER}/${encodeURIComponent(s.repo)}`;
+        const metricsHtml = (s.metrics || []).map(m => `<span class="metric-tag">${escapeHtml(m)}</span>`).join('');
+        const scHtml = (s.shortcuts && s.shortcuts.length)
+          ? `<div class="shortcuts"><span class="shortcut-lbl">快捷直達</span>${s.shortcuts.map(sc =>
+              `<a class="shortcut-link" href="${escapeHtml(sc.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(sc.label)} ↗</a>`
+            ).join('')}</div>`
+          : '';
+        return `
+          <article class="card ${s.featured ? 'featured' : ''}">
+            <div class="card-top">
+              <div class="badges">
+                <span class="badge ${escapeHtml(s.badgeClass)}">${escapeHtml(s.badgeLabel)}</span>
+                ${s.autoDiscovered ? '<span class="badge badge-auto">AUTO-SYNC</span>' : ''}
+              </div>
+              <span class="card-date">UPDATED ${escapeHtml(s.updated || '—')}</span>
+            </div>
+            <h2 class="card-title"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.title)}</a></h2>
+            <div class="card-url-row">
+              <a class="card-url-text" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(s.url)}">${escapeHtml(s.url)}</a>
+              <button type="button" class="copy-btn" data-copy-url="${escapeHtml(s.url)}">複製網址</button>
+            </div>
+            <p class="card-desc">${escapeHtml(s.desc)}</p>
+            ${metricsHtml ? `<div class="metrics">${metricsHtml}</div>` : ''}
+            ${scHtml}
+            <div class="card-footer">
+              <a class="btn-open" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">開啟研究網站 ↗</a>
+              <a class="btn-repo" href="${escapeHtml(repoUrl)}" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('[data-copy-url]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const u = btn.dataset.copyUrl;
+          try {
+            await navigator.clipboard.writeText(u);
+          } catch (e) {
+            const ta = document.createElement('textarea');
+            ta.value = u;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+          const orig = btn.textContent;
+          btn.textContent = '已複製';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.textContent = orig;
+            btn.classList.remove('copied');
+          }, 1400);
+        });
+      });
+    }
+
+    // Filter & Search listeners
+    document.querySelectorAll('#filterGroup .filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCat = btn.dataset.cat;
+        document.querySelectorAll('#filterGroup .filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+        renderCards();
+      });
+    });
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      renderCards();
+    });
+
+    // Live auto-discovery from GitHub Public API
+    async function syncFromGitHub(force = false) {
+      const statusEl = document.getElementById('syncText');
+      const cacheKey = 'sh_portal_gh_repos_v1';
+      let repos = null;
+
+      if (!force) {
+        try {
+          const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
+          if (cached && (Date.now() - cached.ts < 5 * 60 * 1000)) {
+            repos = cached.data;
+          }
+        } catch (e) {}
+      }
+
+      if (!repos) {
+        statusEl.textContent = '正在向 GitHub API 同步最新 Pages 清單...';
+        try {
+          const res = await fetch(`https://api.github.com/users/${OWNER}/repos?per_page=100&sort=updated`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          repos = await res.json();
+          try { sessionStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data: repos })); } catch (e) {}
+        } catch (err) {
+          statusEl.textContent = `使用內建清單（共 ${allSites.length} 個活躍網站；GitHub API 暫時無法連線或達限額）`;
+          return;
+        }
+      }
+
+      const byName = new Map(CURATED_SITES.map(s => [s.repo.toLowerCase(), { ...s }]));
+      const extras = [];
+
+      repos.forEach(r => {
+        if (!r || !r.has_pages) return;
+        const lower = (r.name || '').toLowerCase();
+        if (lower === `${OWNER}.github.io`) return;
+        const upd = (r.pushed_at || r.updated_at || '').slice(0, 10);
+        if (byName.has(lower)) {
+          const item = byName.get(lower);
+          if (upd) item.updated = upd;
+        } else {
+          const pageUrl = (r.homepage && r.homepage.startsWith('http'))
+            ? r.homepage
+            : `https://${OWNER}.github.io/${r.name}/`;
+          extras.push({
+            repo: r.name,
+            title: r.name,
+            category: 'quant',
+            badgeLabel: 'GitHub Pages 新增',
+            badgeClass: 'badge-auto',
+            autoDiscovered: true,
+            featured: false,
+            updated: upd || '—',
+            url: pageUrl,
+            desc: r.description || '自動從 GitHub 帳號偵測到的新部署 GitHub Pages 專案。',
+            metrics: ['Auto-Discovered', r.language || 'HTML'],
+            shortcuts: []
+          });
+        }
+      });
+
+      allSites = [...extras, ...Array.from(byName.values())];
+      const nowStr = new Date().toLocaleTimeString('zh-TW', { hour12: false });
+      statusEl.textContent = `已與 GitHub 同步完成（${nowStr}）· 共偵測到 ${allSites.length} 個活躍 GitHub Pages 網站${extras.length ? `（含 ${extras.length} 個新專案）` : ''}`;
+      renderCards();
+    }
+
+    document.getElementById('btnSyncGh').addEventListener('click', () => syncFromGitHub(true));
+
+    renderCards();
+    syncFromGitHub(false);
+  </script>
+</body>
+</html>
