@@ -617,11 +617,11 @@
       <div class="hero-stats">
         <div class="stat-pill">
           <div class="k">LIVE SITES</div>
-          <div class="v" id="statTotal">5</div>
+          <div class="v" id="statTotal">6</div>
         </div>
         <div class="stat-pill">
           <div class="k">BACKTESTS</div>
-          <div class="v" id="statQuant">3</div>
+          <div class="v" id="statQuant">4</div>
         </div>
         <div class="stat-pill">
           <div class="k">ARCHIVES</div>
@@ -649,7 +649,7 @@
     </section>
 
     <div class="sync-status">
-      <span id="syncText">已載入內建清單（5 個活躍網站）· 啟動自動比對 GitHub Pages 狀態...</span>
+      <span id="syncText">已載入內建清單（6 個活躍網站）· 啟動自動比對 GitHub Pages 狀態...</span>
       <span>固定規則：<code>https://simonshih78.github.io/&lt;專案名&gt;/</code></span>
     </div>
 
@@ -664,6 +664,19 @@
   <script>
     const OWNER = 'simonshih78';
     const CURATED_SITES = [
+      {
+        repo: 'tsmc-fundamentals-backtest',
+        title: '台積電（2330.TW）月營收與 EPS 量化回測終端（2002–2026）',
+        category: 'quant',
+        badgeLabel: '台股個股基本面回測・NEW',
+        badgeClass: 'badge-quant',
+        featured: true,
+        updated: '2026-11-25',
+        url: 'https://simonshih78.github.io/tsmc-fundamentals-backtest/',
+        desc: '整合 FinMind 298 期月營收、99 季單季 EPS／毛利率與 SEC EDGAR 官方 6-K 精確公告日（88 場法說＋289 期月報零假陽性），實證股價領先基本面 +3 個月、點擊展開 T-20→T0→T+60 軌跡、PER vs PBR 循環估值悖論與含台灣手續費/證交稅策略實驗室。',
+        metrics: ['6 大分頁', '298月＋99季', 'SEC 6-K 零前視', '點擊 T-20~T+60 軌跡'],
+        shortcuts: []
+      },
       {
         repo: 'ai-backtest',
         title: '美股科技／半導體暴跌與高收益債利差回測終端',
